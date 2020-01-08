@@ -72,9 +72,9 @@ flyway {
 }
 
 task migrateLocal(type: FlywayMigrateTask) {
-
+    configFiles = ["doc/flyway/flyway_LOCAL.conf"]
 }
 
 task migrateDev(type: FlywayMigrateTask) {
-
+    configFiles = ["doc/flyway/flyway_DEV.conf"]
 }
