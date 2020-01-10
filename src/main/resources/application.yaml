@@ -1,1 +1,122 @@
+# ------------------------------------------------------------------------------
+# Custom defined properties
 
+api.info:
+  title: todos
+  description: todos, REST API
+  version: v1
+  email: ndarasam@gmail.com
+  name: Todo
+
+db:
+  host: <SET-DB-HOST>
+  port: <SET-DB-PORT>
+  database: <SET-DB>
+  connection-params: <SET-DB-CONNECTION-PARAMS>
+  username: <SET-DB-USERNAME>
+  password: <SET-DB-PASSWORD>
+
+rollbar:
+  token: <SET-ROLLBAR-TOKEN>
+
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /api-docs
+
+# ------------------------------------------------------------------------------
+# Spring defined properties
+
+server:
+  port: 6881
+  servlet:
+    context-path: /api
+    session:
+      timeout: 5
+
+spring:
+  application:
+    name: booking
+
+  devtools:
+    livereload:
+      enabled: false
+    remote:
+      restart:
+        enabled: false
+
+  data:
+    rest:
+      base-path: /api
+
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://${db.host}:${db.port}/${db.database}?${db.connection-params}
+    username: ${db.username}
+    password: ${db.password}
+
+
+    hikari:
+      max-lifetime: 600000
+      pool-name: db-conn-pool
+      maximum-pool-size: 20
+      connection-timeout: 10000
+      auto-commit: false
+      leak-detection-threshold: 120000
+
+  jpa:
+    open-in-view: false
+    database: POSTGRESQL
+    hibernate:
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        show_sql: false
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl.auto: none
+        auto_close_session: true
+        connection:
+          useUnicode: true
+          characterEncoding: UTF-8
+          charSet: UTF-8
+        generate_statistics: true
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  jackson:
+    serialization:
+      indent_output: true
+      write_dates_as_timestamps: false
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  messages:
+    basename: text/messages
+
+  profiles:
+    active: LOCAL
+
+logging:
+  level:
+    com.samcheseny: TRACE
+    com.samcheseny.springboottodo: DEBUG
+    org.springframework: INFO
+    org.springframework.web: INFO
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.hibernate: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.stat: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: ERROR
+    org.hibernate.stat.internal.ConcurrentStatisticsImpl: DEBUG
+    com.zaxxer.hikari.pool.PoolBase: OFF
+  pattern:
+    console: "%date{'yyyy-MM-dd HH:mm:ss,SSS'} %-5level [%mdc{X-B3-TraceId}/%mdc{X-B3-SpanId}] %logger{1}:%line - %msg%n"
+
+management:
+  endpoints:
+    web:
+      base-path: /

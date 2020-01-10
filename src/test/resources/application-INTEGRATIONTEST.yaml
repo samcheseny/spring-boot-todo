@@ -1,0 +1,74 @@
+
+# ------------------------------------------------------------------------------
+# Spring defined properties
+
+spring:
+  datasource:
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:11.5://localhost/dev_booking
+
+  flyway:
+    schemas: public
+    locations: filesystem:doc/flyway/migrations,filesystem:doc/flyway/archive,filesystem:doc/flyway/post_migrations
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        show_sql: false
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl.auto: none
+        auto_close_session: true
+        connection:
+          useUnicode: true
+          characterEncoding: UTF-8
+          charSet: UTF-8
+        generate_statistics: true
+        temp:
+          use_jdbc_metadata_defaults: false
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+
+  hikari:
+    max-lifetime: 600000
+    pool-name: db-conn-pool
+    minimum-idle: 1
+    maximum-pool-size: 1
+    idle-timeout: 30000
+    connection-timeout: 10000
+    auto-commit: false
+    leak-detection-threshold: 120000
+
+logging:
+  level:
+    com.samcheseny: TRACE
+    org.springframework: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.session: INFO
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.springframework.transaction: TRACE
+    org.hibernate: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.stat: INFO
+    net.sf: OFF
+    org.springframework.aop.framework.CglibAopProxy: ERROR
+    org.flywaydb: TRACE
+    org.testcontainers: INFO
+    com.github.dockerjava: WARN
+
+policyAPI:
+  baseUrl: http://localhost:6001/api
+
+placesAPI:
+  baseUrl: http://localhost:8111/api
+
+kubeElector:
+  url: http://localhost:9003
+
+HOSTNAME: leader
+
+supplyWorkflow:
+  enquiryExpiryInWeeks: 2

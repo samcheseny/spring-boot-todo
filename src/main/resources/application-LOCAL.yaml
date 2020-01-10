@@ -1,0 +1,18 @@
+db:
+  host: localhost
+  port: 5433
+  database: dev_todos
+  connection-params: autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+  username: postgres
+  password: YourStrongPassw0rd
+
+spring:
+  jpa:
+    show-sql: true
+
+  devtools:
+    livereload:
+      enabled: true
+    remote:
+      restart:
+        enabled: true
