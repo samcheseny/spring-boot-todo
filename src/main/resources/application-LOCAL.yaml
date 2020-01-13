@@ -1,7 +1,7 @@
 db:
   host: localhost
   port: 5433
-  database: dev_todos
+  database: dev_booking
   connection-params: autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
   username: postgres
   password: YourStrongPassw0rd

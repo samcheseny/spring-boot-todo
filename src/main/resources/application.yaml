@@ -7,6 +7,10 @@ api.info:
   version: v1
   email: ndarasam@gmail.com
   name: Todo
+  termsOfServiceUrl: http://localhost
+  url: http://localhost
+  license: MIT
+  licenseUrl: http://localhost
 
 db:
   host: <SET-DB-HOST>
